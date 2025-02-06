@@ -43,7 +43,7 @@ export default function CosmosPage() {
       <div className="max-w-4xl mx-auto">
         <h1 className="text-4xl font-bold mb-8">Customize Your IoT Gadget</h1>
         <p className="text-lg mb-8">
-          Choose from our predefined IoT gadget ideas or describe your own custom idea. We'll build
+          Choose from our predefined IoT gadget ideas or describe your own custom idea. We will build
           it for you!
         </p>
 
