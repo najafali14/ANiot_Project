@@ -1,4 +1,3 @@
-// app/(main)/cosmos/page.tsx
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -13,7 +12,7 @@ export default function CosmosPage() {
     customDescription: '', // Custom idea description
   });
 
-  const predefinedIdeas = [
+  const predefinedIdeas: string[] = [
     'Smart Home Security System',
     'Wearable Health Monitor',
     'Automated Plant Watering System',
@@ -25,15 +24,24 @@ export default function CosmosPage() {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    setIdea((prev) => ({ ...prev, [name]: value }));
+    setIdea((prev) => ({ ...prev, [name]: value.trimStart() }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!idea.selectedIdea && !idea.customDescription) {
+
+    const { name, email, phone, selectedIdea, customDescription } = idea;
+
+    if (!name.trim() || !email.trim() || !phone.trim()) {
+      alert('Please fill in all required fields.');
+      return;
+    }
+
+    if (!selectedIdea && !customDescription.trim()) {
       alert('Please select a predefined idea or describe your custom idea.');
       return;
     }
+
     alert('Your idea has been submitted! We will contact you soon.');
     router.push('/'); // Redirect to homepage after submission
   };
@@ -43,8 +51,8 @@ export default function CosmosPage() {
       <div className="max-w-4xl mx-auto">
         <h1 className="text-4xl font-bold mb-8">Customize Your IoT Gadget</h1>
         <p className="text-lg mb-8">
-          Choose from our predefined IoT gadget ideas or describe your own custom idea. We will build
-          it for you!
+          Choose from our predefined IoT gadget ideas or describe your own custom idea. We&apos;ll
+          build it for you!
         </p>
 
         {/* Custom Product Idea Form */}
@@ -112,9 +120,9 @@ export default function CosmosPage() {
               className="w-full p-2 rounded-lg bg-gray-700 text-white"
             >
               <option value="">-- Select an idea --</option>
-              {predefinedIdeas.map((idea, index) => (
-                <option key={index} value={idea}>
-                  {idea}
+              {predefinedIdeas.map((ideaOption, index) => (
+                <option key={index} value={ideaOption}>
+                  {ideaOption}
                 </option>
               ))}
             </select>
